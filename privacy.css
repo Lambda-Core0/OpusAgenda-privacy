@@ -230,7 +230,7 @@ time {
   }
 
   .toolbar select {
-    min-width: 130px;
+    min-width: 100px;
     padding: 6px 8px;
     font-size: 0.85rem;
   }
