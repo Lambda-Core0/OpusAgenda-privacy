@@ -73,41 +73,66 @@
   </main>
 
   <script>
+    const baseTexts = Array.from(document.querySelectorAll("[data-i18n]")).reduce((acc, el) => {
+      acc[el.dataset.i18n] = el.textContent.trim();
+      return acc;
+    }, {});
+
     const translations = {
       en: {
         title: "Privacy Policy",
         dataTitle: "User Data",
-        dataText: "This app does not collect or transmit personal data.",
+        dataText: "This app does not collect, store, or transmit personal data.",
         storageTitle: "Storage",
-        storageText: "All data is stored locally on the device.",
+        storageText: "All information is stored locally on the device.",
         permTitle: "Permissions",
         permText: "The app may request microphone and file access.",
         extTitle: "External Services",
-        extText: "No analytics, ads or tracking services are used.",
+        extText: "No analytics, ads, or tracking services are used.",
         contactTitle: "Contact",
         contactText: "Contact via the project repository."
       },
-      es: null // usa texto base
+      es: baseTexts
     };
 
     const langSelect = document.getElementById("langSelect");
+    const themeToggle = document.getElementById("themeToggle");
+    const root = document.documentElement;
+
+    const savedTheme = localStorage.getItem("theme");
+    const savedLang = localStorage.getItem("lang");
+
+    function setLanguage(lang) {
+      const translation = translations[lang] || baseTexts;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+        el.textContent = translation[key] || baseTexts[key] || el.textContent;
+      });
+      langSelect.value = lang;
+      localStorage.setItem("lang", lang);
+    }
+
+    function updateTheme(theme) {
+      root.setAttribute("data-theme", theme);
+      themeToggle.textContent = theme === "light" ? "☀️ Claro" : "🌙 Oscuro";
+      localStorage.setItem("theme", theme);
+    }
+
+    if (savedTheme) {
+      updateTheme(savedTheme);
+    }
+
+    if (savedLang) {
+      setLanguage(savedLang);
+    }
 
     langSelect.addEventListener("change", (e) => {
-      const lang = e.target.value;
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.getAttribute("data-i18n");
-        if (lang === "es" || !translations[lang]) return;
-        el.textContent = translations[lang][key];
-      });
+      setLanguage(e.target.value);
     });
 
-    const themeToggle = document.getElementById("themeToggle");
-
     themeToggle.addEventListener("click", () => {
-      const root = document.documentElement;
-      const current = root.getAttribute("data-theme");
-      const next = current === "dark" ? "light" : "dark";
-      root.setAttribute("data-theme", next);
+      const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      updateTheme(next);
     });
   </script>
 </body>

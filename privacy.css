@@ -108,31 +108,43 @@ time {
   h1 {
     font-size: 1.75rem;
   }
-  
-  /* Toolbar */
+}
+
 .toolbar {
   position: sticky;
   top: 0;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 14px 18px;
+  margin: 0 0 18px;
   background: rgba(10, 15, 13, 0.85);
-  border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(8px);
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
 }
 
-select,
-button {
+.toolbar select,
+.toolbar button {
   background: var(--panel);
   color: var(--text);
   border: 1px solid var(--line);
-  padding: 6px 10px;
+  padding: 8px 12px;
   font-family: inherit;
+  font-size: 0.95rem;
   cursor: pointer;
+  border-radius: 999px;
 }
 
-/* Tema claro */
+.toolbar select {
+  min-width: 180px;
+}
+
+.toolbar button {
+  min-width: 120px;
+}
+
 html[data-theme="light"] {
   --bg: #f5f7f6;
   --panel: #ffffff;
@@ -148,6 +160,27 @@ html[data-theme="light"] body {
 }
 
 html[data-theme="light"] .toolbar {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
 }
+
+@media (max-width: 640px) {
+  body {
+    padding: 0;
+  }
+
+  main {
+    border-left: 0;
+    border-right: 0;
+    box-shadow: none;
+    padding: 22px 18px 30px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .toolbar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
