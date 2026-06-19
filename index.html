@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,45 +8,107 @@
   <title>Política de Privacidad | OpusAgenda</title>
   <link rel="stylesheet" href="privacy.css">
 </head>
+
 <body>
+  <header class="toolbar">
+    <select id="langSelect">
+      <option value="es">Español</option>
+      <option value="en">English</option>
+      <option value="pt">Português</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="it">Italiano</option>
+      <option value="ja">日本語</option>
+      <option value="ko">한국어</option>
+      <option value="ru">Русский</option>
+      <option value="ar">العربية</option>
+    </select>
+
+    <button id="themeToggle">🌙 / ☀️</button>
+  </header>
+
   <main>
     <article>
-      <h1>Política de Privacidad</h1>
+      <h1 data-i18n="title">Política de Privacidad</h1>
 
       <p><strong>OpusAgenda</strong> funciona íntegramente de forma local en el dispositivo.</p>
 
       <section>
-        <h2>Datos del usuario</h2>
-        <p>Esta aplicación no recopila, almacena ni transmite datos personales a servidores externos.</p>
+        <h2 data-i18n="dataTitle">Datos del usuario</h2>
+        <p data-i18n="dataText">
+          Esta aplicación no recopila, almacena ni transmite datos personales a servidores externos.
+        </p>
       </section>
 
       <section>
-        <h2>Almacenamiento</h2>
-        <p>Toda la información, incluyendo tareas, categorías, notas, audios y archivos, se guarda únicamente en el dispositivo del usuario mediante almacenamiento local.</p>
+        <h2 data-i18n="storageTitle">Almacenamiento</h2>
+        <p data-i18n="storageText">
+          Toda la información, incluyendo tareas, categorías, notas, audios y archivos, se guarda únicamente en el dispositivo del usuario mediante almacenamiento local.
+        </p>
       </section>
 
       <section>
-        <h2>Acceso a permisos</h2>
-        <p>La aplicación puede solicitar permisos o accesos locales como:</p>
-        <ul>
-          <li>Micrófono, para grabación de notas de voz.</li>
-          <li>Acceso a archivos seleccionados por el usuario, para exportar e importar respaldos.</li>
-        </ul>
-        <p>Estos permisos se utilizan únicamente para funciones internas de la app y no se envía información fuera del dispositivo.</p>
+        <h2 data-i18n="permTitle">Acceso a permisos</h2>
+        <p data-i18n="permText">
+          La aplicación puede solicitar permisos como micrófono o acceso a archivos locales.
+        </p>
       </section>
 
       <section>
-        <h2>Servicios externos</h2>
-        <p>La aplicación no utiliza servicios de análisis, publicidad ni seguimiento de usuarios.</p>
+        <h2 data-i18n="extTitle">Servicios externos</h2>
+        <p data-i18n="extText">
+          La aplicación no utiliza servicios de análisis, publicidad ni seguimiento de usuarios.
+        </p>
       </section>
 
       <section>
-        <h2>Contacto</h2>
-        <p>Si tienes dudas sobre esta política, puedes contactar al desarrollador a través del repositorio del proyecto.</p>
+        <h2 data-i18n="contactTitle">Contacto</h2>
+        <p data-i18n="contactText">
+          Puedes contactar al desarrollador a través del repositorio del proyecto.
+        </p>
       </section>
 
       <p><em>Última actualización: <time datetime="2026-06-19">19 de junio de 2026</time></em></p>
     </article>
   </main>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Privacy Policy",
+        dataTitle: "User Data",
+        dataText: "This app does not collect or transmit personal data.",
+        storageTitle: "Storage",
+        storageText: "All data is stored locally on the device.",
+        permTitle: "Permissions",
+        permText: "The app may request microphone and file access.",
+        extTitle: "External Services",
+        extText: "No analytics, ads or tracking services are used.",
+        contactTitle: "Contact",
+        contactText: "Contact via the project repository."
+      },
+      es: null // usa texto base
+    };
+
+    const langSelect = document.getElementById("langSelect");
+
+    langSelect.addEventListener("change", (e) => {
+      const lang = e.target.value;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (lang === "es" || !translations[lang]) return;
+        el.textContent = translations[lang][key];
+      });
+    });
+
+    const themeToggle = document.getElementById("themeToggle");
+
+    themeToggle.addEventListener("click", () => {
+      const root = document.documentElement;
+      const current = root.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+    });
+  </script>
 </body>
 </html>
