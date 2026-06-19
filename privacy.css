@@ -146,28 +146,7 @@ time {
   display: grid;
   place-items: center;
   padding: 0;
-}
-
-.theme-icon {
-  width: 22px;
-  height: 22px;
-  display: block;
-}
-
-html[data-theme="light"] {
-  --bg: #f5f7f6;
-  --panel: #ffffff;
-  --line: #d7e2dc;
-  --green: #1a7f4b;
-  --yellow: #b08900;
-  --text: #1a1f1c;
-  --muted: #4d5b55;
-}
-
-html[data-theme="light"] body {
-  background: var(--bg);
-}
-
+    border-radius: 0;
 html[data-theme="light"] .toolbar {
   background: rgba(255, 255, 255, 0.92);
 }
