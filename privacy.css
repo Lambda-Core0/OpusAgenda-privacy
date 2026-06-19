@@ -156,8 +156,14 @@ time {
 .logo-wrapper img {
   width: 100%;
   height: 100%;
+  max-width: 40px;
+  max-height: 40px;
   object-fit: contain;
   display: block;
+}
+
+.toolbar {
+  min-height: 40px;
 }
 
 .toolbar select,
