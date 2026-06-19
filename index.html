@@ -14,17 +14,11 @@
     <select id="langSelect">
       <option value="es">Español</option>
       <option value="en">English</option>
-      <option value="pt">Português</option>
-      <option value="fr">Français</option>
-      <option value="de">Deutsch</option>
-      <option value="it">Italiano</option>
-      <option value="ja">日本語</option>
-      <option value="ko">한국어</option>
-      <option value="ru">Русский</option>
-      <option value="ar">العربية</option>
     </select>
 
-    <button id="themeToggle">🌙 / ☀️</button>
+    <button id="themeToggle" class="theme-button" aria-label="Cambiar tema" title="Cambiar tema">
+      <img src="assets/lua.png" alt="" class="theme-icon">
+    </button>
   </header>
 
   <main>
@@ -97,6 +91,7 @@
 
     const langSelect = document.getElementById("langSelect");
     const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = themeToggle.querySelector(".theme-icon");
     const root = document.documentElement;
 
     const savedTheme = localStorage.getItem("theme");
@@ -114,13 +109,15 @@
 
     function updateTheme(theme) {
       root.setAttribute("data-theme", theme);
-      themeToggle.textContent = theme === "light" ? "☀️ Claro" : "🌙 Oscuro";
+      const isLight = theme === "light";
+      themeIcon.src = `assets/${isLight ? "sol" : "lua"}.png`;
+      themeToggle.setAttribute("aria-label", isLight ? "Cambiar a tema oscuro" : "Cambiar a tema claro");
+      themeToggle.title = isLight ? "Cambiar a tema oscuro" : "Cambiar a tema claro";
       localStorage.setItem("theme", theme);
     }
 
-    if (savedTheme) {
-      updateTheme(savedTheme);
-    }
+    const defaultTheme = root.getAttribute("data-theme") || "dark";
+    updateTheme(savedTheme || defaultTheme);
 
     if (savedLang) {
       setLanguage(savedLang);
