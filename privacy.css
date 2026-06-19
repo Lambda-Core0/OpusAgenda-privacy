@@ -225,5 +225,14 @@ time {
   .toolbar {
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .toolbar select {
+    min-width: 130px;
+    padding: 6px 8px;
+    font-size: 0.85rem;
+  }
   }
 }
